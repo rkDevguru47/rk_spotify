@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import Modal from './Modal';
 import { useSessionContext, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
-import useAuthModal from '@/hooks/useAuthModel';
+import useAuthModal from '@/hooks/useAuthModal';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 
