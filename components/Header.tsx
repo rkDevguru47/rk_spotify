@@ -6,6 +6,9 @@ import  { RxCaretLeft, RxCaretRight } from 'react-icons/rx';
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
+import useAuthModal from "@/hooks/useAuthModel";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@/hooks/useUser";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -16,10 +19,18 @@ const Header:React.FC<HeaderProps> = ({
     children,
     className,
 }) => {
+    const authModel = useAuthModal();
     const router = useRouter();
+    const supabaseClient= useSupabaseClient();
+    const {user}= useUser();
 
-    const handleLogout = () => {
-        //handle logout in the future
+    const handleLogout = async () => {
+        //handle logout 
+        const { error } = await supabaseClient.auth.signOut();
+
+        //Todo: refresh any playing songs 
+        
+        router.refresh();
     }
 
   return (
@@ -50,14 +61,14 @@ const Header:React.FC<HeaderProps> = ({
                 <>
                     <div>
                         <Button 
-                        onClick={()=>{}}
+                        onClick={authModel.onOpen}
                         className="bg-transparent text-neutral-300 font-medium">
                            Sign up 
                         </Button> 
                     </div>
                     <div>
                         <Button 
-                        onClick={()=>{}}
+                        onClick={authModel.onOpen}
                         className="bg-white px-6 py-2">
                            Log in
                         </Button> 
