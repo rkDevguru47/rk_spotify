@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AuthModel from "@/components/AuthModel";
+import UploadModal from "@/components/UploadModal";
 
 // import SubscribeModal from "@/components/SubscribeModal";
 // import UploadModal from "@/components/UploadModal";
@@ -25,6 +26,7 @@ const ModalProvider = () => {
   return (
     <>
       <AuthModel/>
+      <UploadModal/>
       {/* <AuthModal />
       <SubscribeModal products={products} />
       <UploadModal /> */}
