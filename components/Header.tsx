@@ -9,6 +9,8 @@ import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModel";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
+import { FaUserAlt } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -29,8 +31,15 @@ const Header:React.FC<HeaderProps> = ({
         const { error } = await supabaseClient.auth.signOut();
 
         //Todo: refresh any playing songs 
-        
+
         router.refresh();
+        if(error){
+           toast.error(error.message);
+        }else{
+            toast.success('Logged out successfully');
+        
+        }
+
     }
 
   return (
@@ -58,6 +67,22 @@ const Header:React.FC<HeaderProps> = ({
                 </button>
             </div>
             <div className="flex justify-between items-center gap-x-4">
+                {user? (
+                    <div className="flex gap-x-4 items-center">
+                        <Button
+                        onClick={handleLogout}
+                        className="bg-white px-6 py-2"
+                        >
+                            Logout
+                        </Button>
+                        <Button
+                        onClick={()=> router.push('/account')}
+                        className="bg-white"
+                        >
+                            <FaUserAlt/>
+                        </Button>
+                    </div>
+                ):(
                 <>
                     <div>
                         <Button 
@@ -74,6 +99,7 @@ const Header:React.FC<HeaderProps> = ({
                         </Button> 
                     </div>
                 </>
+                )}
             </div>
         </div>
         {children}
